@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour {
     private float gravity;
     private float vSpeed;
     public float jumpSpeed;
+    public float respawnTime;
+    private float timer;
+
+    private bool startTimer = false;
 
 	void Start () {
 	
@@ -16,18 +20,16 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
         Movement();
         ApplyGravity();
-        ReSpawn();
         Jump();
-        Debug.Log(cc.isGrounded);
 
-        if (cc.isGrounded)
+        if (startTimer)
         {
-                gravity = 0f;
+            timer += Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (transform.position.y < -10)
         {
-            gravity += jumpSpeed * Time.deltaTime;
+            ReSpawn();
         }
     }
 
@@ -39,23 +41,41 @@ public class PlayerMovement : MonoBehaviour {
 
     public void ApplyGravity()
     {
-        gravity -= 9.81f * Time.deltaTime;
+        if (!cc.isGrounded)
+        {
+            gravity -= 9.81f * Time.deltaTime;
+        }
+        
     }
 
     public void Jump()
     {
         if (cc.isGrounded && Input.GetButtonDown("Jump"))
         {
-            
+            gravity = 0f;
+            gravity += jumpSpeed * Time.deltaTime;
         }
     }
 
     public void ReSpawn()
     {
-        if (transform.position.y < -10)
+        startTimer = true;
+        if (timer >= respawnTime)
         {
             transform.position = new Vector3(0f, 1.4f, 0f);
             Debug.Log("Respawned!");
+            timer = 0f;
+            startTimer = false;
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.transform.tag == "Enemy")
+        {
+            Debug.Log("Collision with enemy!");
+            gameObject.transform.position -= new Vector3(0f, 10f, 0f);
+            ReSpawn();
         }
     }
 }
