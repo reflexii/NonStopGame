@@ -19,6 +19,11 @@ public class BaseScript : MonoBehaviour {
         gameObject.transform.position += new Vector3(0f, 0f, -1f) * movementSpeed * Time.deltaTime;
     }
 
+    public void Update()
+    {
+        Move();
+    }
+
     public virtual void DestroyObject()
     {
         if (gameObject.transform.position.z <= endingPosition.position.z)

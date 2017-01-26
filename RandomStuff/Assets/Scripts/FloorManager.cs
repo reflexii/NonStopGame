@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FloorManager : MonoBehaviour {
 
@@ -17,6 +18,11 @@ public class FloorManager : MonoBehaviour {
     public int easyZoneAmount;
     public GameObject enemyObject;
     public float maximumSpeed;
+    public GameObject coinPrefab;
+    public float coinSpawnTime;
+    private float runningTime;
+
+    private List<Vector3> transformList = new List<Vector3>();
 
     void Start () {
         InitialSetup();
@@ -24,8 +30,10 @@ public class FloorManager : MonoBehaviour {
 	}
 	
 	void Update () {
+        runningTime += Time.deltaTime;
         increaseBlockSpeed();
         updateBlockSpeed();
+        spawnCoins();
 	}
 
     public void InitialSetup()
@@ -82,5 +90,38 @@ public class FloorManager : MonoBehaviour {
         {
             go[i].GetComponent<FloorPart>().movementSpeed = blockSpeed;
         }
+    }
+
+    public void spawnCoins()
+    {
+        if (coinSpawnTime < runningTime)
+        {
+            RayCasting();
+
+            int randomize = Random.Range(0, transformList.Count);
+
+            Instantiate(coinPrefab, transformList[randomize], coinPrefab.transform.rotation);
+            Debug.Log("Spawned coin at: " + transformList[randomize]);
+            runningTime = 0f;
+        }
+        
+    }
+
+    public void RayCasting()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (Physics.Raycast(startPos.transform.position + new Vector3(-2f + i, 2f, -2f), Vector3.down, 3f))
+            {
+                Debug.DrawRay(startPos.transform.position + new Vector3(-2f + i, 2f, -2f), Vector3.down * 3f, Color.green);
+                transformList.Add(startPos.transform.position + new Vector3(-2f + i, 2f, -2f));
+            }
+            else
+            {
+                Debug.DrawRay(startPos.transform.position + new Vector3(-2f + i, 2f, -2f), Vector3.down * 3f, Color.red);
+            }
+        }
+        
+        
     }
 }

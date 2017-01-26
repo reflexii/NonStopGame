@@ -12,6 +12,8 @@ public class EnemyScript : BaseScript
     private Transform m_gcTransform;
     private float m_fEventTime;
 
+    public GameObject particlePrefab;
+
     // Use this for initialization
     new void Start()
     {
@@ -37,7 +39,7 @@ public class EnemyScript : BaseScript
             FlipDirection();
             m_fEventTime = Time.time;
         }
-        Move();
+        base.Update();
         DestroyObject();
         updateEnemySpeed();
     }
@@ -52,5 +54,14 @@ public class EnemyScript : BaseScript
     public void updateEnemySpeed()
     {
         movementSpeed = fm.blockSpeed;
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            GameObject g = Instantiate(particlePrefab, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }

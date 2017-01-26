@@ -62,10 +62,11 @@ public class PlayerMovement : MonoBehaviour {
         startTimer = true;
         if (timer >= respawnTime)
         {
-            transform.position = new Vector3(0f, 1.4f, 0f);
+            transform.position = new Vector3(0f, 10.4f, 0f);
             Debug.Log("Respawned!");
             timer = 0f;
             startTimer = false;
+            gravity = 0f;
         }
     }
 
@@ -74,7 +75,7 @@ public class PlayerMovement : MonoBehaviour {
         if (col.gameObject.transform.tag == "Enemy")
         {
             Debug.Log("Collision with enemy!");
-            gameObject.transform.position -= new Vector3(0f, 10f, 0f);
+            gameObject.transform.position -= new Vector3(0f, 3f, 0f);
             ReSpawn();
         }
     }

@@ -8,7 +8,7 @@ public class FloorPart : BaseScript {
     }
 	
 	void Update () {
-        Move();
+        base.Update();
         DestroyObject();
 	}
     public override void DestroyObject()

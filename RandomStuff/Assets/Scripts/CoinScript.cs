@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour {
+public class CoinScript : BaseScript {
 
-	void Start () {
-		
-	}
+    public float rotateSpeedZ;
+
+	new void Start () {
+        base.Start();
+        movementSpeed = fm.blockSpeed;
+    }
 	
 	void Update () {
-		
+        base.Update();
+        rotateObject();
+        movementSpeed = fm.blockSpeed;
+        DestroyObject();
 	}
 
     void OnTriggerEnter(Collider col)
@@ -19,5 +25,10 @@ public class CoinScript : MonoBehaviour {
             Debug.Log("Player found");
             Destroy(gameObject);
         }
+    }
+
+    void rotateObject()
+    {
+        transform.Rotate(Vector3.forward * Time.deltaTime * rotateSpeedZ);
     }
 }
