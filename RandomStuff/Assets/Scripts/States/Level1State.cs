@@ -6,10 +6,10 @@ public class Level1State : GameState {
 
 	new void Start () {
         base.Start();
-        stateName = "Level1State";
+        initialize();
 	}
-	
-	void Update () {
-		
-	}
+
+    public void initialize() {
+        stateName = "Level1";
+    }
 }

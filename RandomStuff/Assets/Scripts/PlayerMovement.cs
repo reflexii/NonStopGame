@@ -12,10 +12,6 @@ public class PlayerMovement : MonoBehaviour {
     private float timer;
 
     private bool startTimer = false;
-
-	void Start () {
-	
-	}
 	
 	void Update () {
         Movement();
@@ -53,7 +49,7 @@ public class PlayerMovement : MonoBehaviour {
         if (cc.isGrounded && Input.GetButtonDown("Jump"))
         {
             gravity = 0f;
-            gravity += jumpSpeed * Time.deltaTime;
+            gravity += jumpSpeed;
         }
     }
 

@@ -10,8 +10,12 @@ public class MainMenuState : GameState {
     // Use this for initialization
     new void Start () {
         base.Start();
-        stateName = "MainMenuState";
         currentTime = 0;
+        initialize();
+    }
+
+    public void initialize() {
+        stateName = "MainMenu";
     }
 	
 	// Update is called once per frame
@@ -20,8 +24,8 @@ public class MainMenuState : GameState {
 
         if (currentTime >= changeTime)
         {
-            Debug.Log("Changing scene");
-            GameGlobals.Instance.gameStateManager.ChangeState(GameState.tStateType.Game, "Level1");
+            Debug.Log("Changing scene to level1");
+            GameGlobals.Instance.gameStateManager.ChangeState(tStateType.Game);
         }
     }
 }

@@ -5,46 +5,53 @@ using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour {
 
-    public GameObject currentState;
-    public GameState.tStateType newState;
+    public GameState.tStateType currentState;
 
-    public void ChangeState(GameState.tStateType iState, string sLevelName = "")
-    {
-        Destroy(currentState);
-        currentState = new GameObject();
-        DontDestroyOnLoad(currentState);
-        if (sLevelName != "")
-        {
-            newState = iState;
-            SceneManager.LoadScene(sLevelName);
-        }
-        else
-        {
-            SetState(iState);
-        }
-            
+    private SplashScreenState sss;
+    private MainMenuState mms;
+    private Level1State l1s;
+
+    public void Start() {
+        sss = GetComponent<SplashScreenState>();
+        mms = GetComponent<MainMenuState>();
+        l1s = GetComponent<Level1State>();
+
+        activateAndChangeState(GameState.tStateType.SplashScreen, false);
     }
 
-    private void SetState(GameState.tStateType iState)
-    {
-        switch (iState)
-        {
-            case GameState.tStateType.SplashScreen:
-                currentState.AddComponent<SplashScreenState>();
-                currentState.name = "GS: Splash Screen";
-                SceneManager.LoadScene(currentState.GetComponent<SplashScreenState>().stateName);
-                break;
-            case GameState.tStateType.MainMenu:
-                currentState.AddComponent<MainMenuState>();
-                currentState.name = "GS: Main Menu";
-                SceneManager.LoadScene(currentState.GetComponent<MainMenuState>().stateName);
-                break;
-            case GameState.tStateType.Game:
-                currentState.AddComponent<Level1State>();
-                currentState.name = "GS: Level1";
-                SceneManager.LoadScene(currentState.GetComponent<Level1State>().stateName);
-                break;
+    public void activateAndChangeState(GameState.tStateType state, bool changeState = true) {
+        if (state == GameState.tStateType.SplashScreen) {
+            sss.initialize();
+            sss.enabled = true;
+            mms.enabled = false;
+            l1s.enabled = false;
+            if (changeState) {
+                SceneManager.LoadScene(sss.stateName);
+            }
+            
+        } else if (state == GameState.tStateType.MainMenu) {
+            mms.initialize();
+            sss.enabled = false;
+            mms.enabled = true;
+            l1s.enabled = false;
+            if (changeState) {
+                SceneManager.LoadScene(mms.stateName);
+            }
+        } else if (state == GameState.tStateType.Game) {
+            l1s.initialize();
+            sss.enabled = false;
+            mms.enabled = false;
+            l1s.enabled = true;
+            if (changeState) {
+                SceneManager.LoadScene(l1s.stateName);
+            }
         }
-        newState = GameState.tStateType.Error;
+
+        currentState = state;
+    }
+
+    public void ChangeState(GameState.tStateType iState = GameState.tStateType.Error)
+    {
+            activateAndChangeState(iState);       
     }
 }

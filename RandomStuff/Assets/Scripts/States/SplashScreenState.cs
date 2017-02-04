@@ -6,20 +6,26 @@ public class SplashScreenState : GameState {
 
     float changeTime = 1f;
     float currentTime;
+    bool doOnce = false;
 
 	new void Start () {
         base.Start();
-        stateName = "SplashScreenState";
         currentTime = 0;
+        initialize();
 	}
-	
-	void Update () {
+
+    public void initialize() {
+        stateName = "SplashScreen";
+    }
+
+    void Update () {
         currentTime += Time.deltaTime;
 
-        if (currentTime >= changeTime)
+        if (currentTime >= changeTime && !doOnce)
         {
-            Debug.Log("Changing scene");
-            GameGlobals.Instance.gameStateManager.ChangeState(GameState.tStateType.MainMenu, "MainMenu");
+            Debug.Log("Changing scene to Main Menu");
+            doOnce = true;
+            GameGlobals.Instance.gameStateManager.ChangeState(tStateType.MainMenu);
         }
 	}
 }
