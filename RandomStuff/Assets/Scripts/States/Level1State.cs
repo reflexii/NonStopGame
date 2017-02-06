@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class Level1State : GameState {
 
-	new void Start () {
+	void Awake () {
         base.Start();
-        initialize();
-	}
-
-    public void initialize() {
         stateName = "Level1";
     }
 }

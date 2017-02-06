@@ -8,13 +8,9 @@ public class SplashScreenState : GameState {
     float currentTime;
     bool doOnce = false;
 
-	new void Start () {
+	void Awake () {
         base.Start();
         currentTime = 0;
-        initialize();
-	}
-
-    public void initialize() {
         stateName = "SplashScreen";
     }
 

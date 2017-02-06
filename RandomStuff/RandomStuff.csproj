@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\BaseScript.cs" />
     <Compile Include="Assets\Scripts\CloudScript.cs" />
     <Compile Include="Assets\Scripts\CoinScript.cs" />
+    <Compile Include="Assets\Scripts\DevCheck.cs" />
     <Compile Include="Assets\Scripts\Easing.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\FloorManager.cs" />

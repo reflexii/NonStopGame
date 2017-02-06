@@ -11,39 +11,39 @@ public class GameStateManager : MonoBehaviour {
     private MainMenuState mms;
     private Level1State l1s;
 
-    public void Start() {
+    void Awake() {
         sss = GetComponent<SplashScreenState>();
         mms = GetComponent<MainMenuState>();
         l1s = GetComponent<Level1State>();
 
         activateAndChangeState(GameState.tStateType.SplashScreen, false);
+
+        GameObject g = GameObject.Find("DeveloperCheck");
+
+        if (g != null) {
+            Debug.Log("Found devcheck");
+            SceneManager.LoadScene(g.GetComponent<DevCheck>().sceneName);
+            Destroy(g);
+        }
+
     }
 
     public void activateAndChangeState(GameState.tStateType state, bool changeState = true) {
-        if (state == GameState.tStateType.SplashScreen) {
-            sss.initialize();
-            sss.enabled = true;
-            mms.enabled = false;
-            l1s.enabled = false;
-            if (changeState) {
-                SceneManager.LoadScene(sss.stateName);
-            }
-            
-        } else if (state == GameState.tStateType.MainMenu) {
-            mms.initialize();
-            sss.enabled = false;
-            mms.enabled = true;
-            l1s.enabled = false;
-            if (changeState) {
-                SceneManager.LoadScene(mms.stateName);
-            }
-        } else if (state == GameState.tStateType.Game) {
-            l1s.initialize();
-            sss.enabled = false;
-            mms.enabled = false;
-            l1s.enabled = true;
-            if (changeState) {
-                SceneManager.LoadScene(l1s.stateName);
+
+        activateScripts(state);
+
+        if (changeState) {
+
+            switch(state) {
+                case GameState.tStateType.SplashScreen:
+                    SceneManager.LoadScene(sss.stateName);
+                    break;
+                case GameState.tStateType.MainMenu:
+                    SceneManager.LoadScene(mms.stateName);
+                    break;
+                case GameState.tStateType.Game:
+                    SceneManager.LoadScene(l1s.stateName);
+                    break;
             }
         }
 
@@ -52,6 +52,24 @@ public class GameStateManager : MonoBehaviour {
 
     public void ChangeState(GameState.tStateType iState = GameState.tStateType.Error)
     {
-            activateAndChangeState(iState);       
+            activateAndChangeState(iState);
+    }
+
+    public void activateScripts(GameState.tStateType type) {
+        sss.enabled = false;
+        mms.enabled = false;
+        l1s.enabled = false;
+
+        switch (type) {
+            case GameState.tStateType.SplashScreen:
+                sss.enabled = true;
+                break;
+            case GameState.tStateType.MainMenu:
+                mms.enabled = true;
+                break;
+            case GameState.tStateType.Game:
+                l1s.enabled = true;
+                break;
+        }
     }
 }

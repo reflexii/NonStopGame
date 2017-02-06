@@ -8,13 +8,9 @@ public class MainMenuState : GameState {
     float currentTime;
 
     // Use this for initialization
-    new void Start () {
+    void Awake() {
         base.Start();
         currentTime = 0;
-        initialize();
-    }
-
-    public void initialize() {
         stateName = "MainMenu";
     }
 	
