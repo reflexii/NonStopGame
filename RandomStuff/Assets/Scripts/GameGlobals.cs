@@ -7,6 +7,10 @@ public class GameGlobals : MonoBehaviour {
     private static GameGlobals _instance;
 
     public GameStateManager gameStateManager;
+    public bool isPlayerAlive = true;
+    public int coinsCollected = 1;
+    public float score = 0;
+    public float highscore = 0;
     public static GameGlobals Instance
     {
         get

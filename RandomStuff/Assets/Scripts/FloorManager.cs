@@ -30,7 +30,11 @@ public class FloorManager : MonoBehaviour {
 	}
 	
 	void Update () {
-        runningTime += Time.deltaTime;
+        if (GameGlobals.Instance.isPlayerAlive)
+        {
+            runningTime += Time.deltaTime;
+        }
+        
         increaseBlockSpeed();
         updateBlockSpeed();
         spawnCoins();

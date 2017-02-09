@@ -9,9 +9,8 @@ public class SplashScreenState : GameState {
     bool doOnce = false;
 
 	void Awake () {
-        base.Start();
         currentTime = 0;
-        stateName = "SplashScreen";
+        Initialize();
     }
 
     void Update () {
@@ -24,4 +23,9 @@ public class SplashScreenState : GameState {
             GameGlobals.Instance.gameStateManager.ChangeState(tStateType.MainMenu);
         }
 	}
+
+    public void Initialize()
+    {
+        stateName = "SplashScreen";
+    }
 }

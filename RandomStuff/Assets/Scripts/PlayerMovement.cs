@@ -17,15 +17,17 @@ public class PlayerMovement : MonoBehaviour {
         Movement();
         ApplyGravity();
         Jump();
-
+        AddDistance();
+        /*
         if (startTimer)
         {
             timer += Time.deltaTime;
         }
+        */
 
         if (transform.position.y < -10)
         {
-            ReSpawn();
+            GameGlobals.Instance.isPlayerAlive = false;
         }
     }
 
@@ -51,19 +53,25 @@ public class PlayerMovement : MonoBehaviour {
             gravity = 0f;
             gravity += jumpSpeed;
         }
+
+        if (Input.GetButtonDown("Jump") && !GameGlobals.Instance.isPlayerAlive)
+        {
+            Debug.Log("Restarting game");
+            GameGlobals.Instance.gameStateManager.ChangeState(GameState.tStateType.Game);
+            GameGlobals.Instance.score = 0;
+            GameGlobals.Instance.coinsCollected = 1;
+            ReSpawn();
+        }
     }
 
     public void ReSpawn()
     {
-        startTimer = true;
-        if (timer >= respawnTime)
-        {
-            transform.position = new Vector3(0f, 10.4f, 0f);
-            Debug.Log("Respawned!");
-            timer = 0f;
-            startTimer = false;
-            gravity = 0f;
-        }
+        transform.position = new Vector3(0f, 10.4f, 0f);
+        Debug.Log("Respawned!");
+        timer = 0f;
+        startTimer = false;
+        gravity = 0f;
+        GameGlobals.Instance.isPlayerAlive = true;
     }
 
     void OnTriggerEnter(Collider col)
@@ -72,7 +80,16 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("Collision with enemy!");
             gameObject.transform.position -= new Vector3(0f, 3f, 0f);
-            ReSpawn();
+            GameGlobals.Instance.isPlayerAlive = false;
+            //ReSpawn();
+        }
+    }
+
+    void AddDistance()
+    {
+        if (GameGlobals.Instance.isPlayerAlive)
+        {
+            GameGlobals.Instance.score += Time.deltaTime;
         }
     }
 }

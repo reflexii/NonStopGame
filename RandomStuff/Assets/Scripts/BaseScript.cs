@@ -16,7 +16,11 @@ public class BaseScript : MonoBehaviour {
 
     public void Move()
     {
-        gameObject.transform.position += new Vector3(0f, 0f, -1f) * movementSpeed * Time.deltaTime;
+        if (GameGlobals.Instance.isPlayerAlive)
+        {
+            gameObject.transform.position += new Vector3(0f, 0f, -1f) * movementSpeed * Time.deltaTime;
+        }
+        
     }
 
     public void Update()

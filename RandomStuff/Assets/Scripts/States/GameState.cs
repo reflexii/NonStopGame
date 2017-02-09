@@ -13,11 +13,7 @@ public class GameState : MonoBehaviour {
         Game
     }
 
-	protected void Start () {
+	void Start () {
         stateName = "BaseClass";
-	}
-	
-	void Update () {
-		
 	}
 }

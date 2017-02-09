@@ -49,19 +49,23 @@
      <Compile Include="Assets\Scripts\BaseScript.cs" />
      <Compile Include="Assets\Scripts\CloudScript.cs" />
      <Compile Include="Assets\Scripts\CoinScript.cs" />
+     <Compile Include="Assets\Scripts\DevCheck.cs" />
      <Compile Include="Assets\Scripts\Easing.cs" />
      <Compile Include="Assets\Scripts\EnemyScript.cs" />
      <Compile Include="Assets\Scripts\FloorManager.cs" />
      <Compile Include="Assets\Scripts\FloorPart.cs" />
      <Compile Include="Assets\Scripts\GameGlobals.cs" />
+     <Compile Include="Assets\Scripts\MainMenuButtonScript.cs" />
      <Compile Include="Assets\Scripts\ParticleScript.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\RotateAround.cs" />
+     <Compile Include="Assets\Scripts\RotateCoin.cs" />
      <Compile Include="Assets\Scripts\States\GameState.cs" />
      <Compile Include="Assets\Scripts\States\GameStateManager.cs" />
      <Compile Include="Assets\Scripts\States\Level1State.cs" />
      <Compile Include="Assets\Scripts\States\MainMenuState.cs" />
      <Compile Include="Assets\Scripts\States\SplashScreenState.cs" />
+     <Compile Include="Assets\Scripts\UIManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

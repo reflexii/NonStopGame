@@ -5,24 +5,31 @@ using UnityEngine;
 public class CoinScript : BaseScript {
 
     public float rotateSpeedZ;
+    public bool destroyObject = true;
 
 	new void Start () {
         base.Start();
         movementSpeed = fm.blockSpeed;
     }
 	
-	void Update () {
+	new void Update () {
         base.Update();
         rotateObject();
         movementSpeed = fm.blockSpeed;
-        DestroyObject();
+        if (destroyObject)
+        {
+            DestroyObject();
+        }
+        
 	}
 
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.transform.tag == "Player")
         {
-            Debug.Log("Player found");
+            //Add Coins
+            GameGlobals.Instance.coinsCollected++;
+            
             Destroy(gameObject);
         }
     }

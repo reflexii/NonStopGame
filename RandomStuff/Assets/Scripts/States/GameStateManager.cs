@@ -22,7 +22,13 @@ public class GameStateManager : MonoBehaviour {
 
         if (g != null) {
             Debug.Log("Found devcheck");
-            SceneManager.LoadScene(g.GetComponent<DevCheck>().sceneName);
+            if (g.GetComponent<DevCheck>().sceneName == "Level1")
+            {
+                ChangeState(GameState.tStateType.Game);
+            } else if (g.GetComponent<DevCheck>().sceneName == "MainMenu")
+            {
+                ChangeState(GameState.tStateType.MainMenu);
+            }
             Destroy(g);
         }
 
@@ -36,13 +42,16 @@ public class GameStateManager : MonoBehaviour {
 
             switch(state) {
                 case GameState.tStateType.SplashScreen:
-                    SceneManager.LoadScene(sss.stateName);
+                    sss.Initialize();
+                    SceneManager.LoadScene("SplashScreen");
                     break;
                 case GameState.tStateType.MainMenu:
-                    SceneManager.LoadScene(mms.stateName);
+                    mms.Initialize();
+                    SceneManager.LoadScene("MainMenu");
                     break;
                 case GameState.tStateType.Game:
-                    SceneManager.LoadScene(l1s.stateName);
+                    l1s.Initialize();
+                    SceneManager.LoadScene("Level1");
                     break;
             }
         }

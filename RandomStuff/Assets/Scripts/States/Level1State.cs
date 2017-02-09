@@ -5,7 +5,12 @@ using UnityEngine;
 public class Level1State : GameState {
 
 	void Awake () {
-        base.Start();
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         stateName = "Level1";
     }
+
 }
